@@ -37,9 +37,16 @@
         }
         else
         {
-            id model = [targetModel mj_objectWithKeyValues:responseObject];
-            
-            handle (operation, model , nil);
+            if (targetModel)
+            {
+                id model = [targetModel mj_objectWithKeyValues:responseObject];
+                
+                handle (operation, model , nil);
+            }
+            else
+            {
+                handle (operation, responseObject, nil);
+            }
         }
     }];
     
@@ -58,9 +65,16 @@
         }
         else
         {
-            id model = [targetModel mj_objectWithKeyValues:responseObject];
-            
-            handle (operation, model , nil);
+            if (targetModel)
+            {
+                id model = [targetModel mj_objectWithKeyValues:responseObject];
+                
+                handle (operation, model , nil);
+            }
+            else
+            {
+                handle (operation, responseObject, nil);
+            }
         }
     }];
     

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @class AFHTTPRequestOperation;
 
-typedef void(^CompletionHandle)(id operation, id targetModel, NSError *error);
+typedef void(^CompletionHandle)(id operation, id targetData, NSError *error);
 
 @interface NetworkRequestManager : NSObject
 
@@ -23,7 +23,7 @@ typedef void(^CompletionHandle)(id operation, id targetModel, NSError *error);
  *
  *  @param address     请求地址
  *  @param params      请求参数
- *  @param targetModel 需要转化的目标模型
+ *  @param targetModel 需要转化的目标模型  (如果 targetModel 为 nil , 则返回默认的字典)
  *  @param handle      回调
  *
  *  @return 请求操作对象
@@ -36,7 +36,7 @@ typedef void(^CompletionHandle)(id operation, id targetModel, NSError *error);
  *
  *  @param address     请求地址
  *  @param params      请求参数
- *  @param targetModel 需要转化的目标模型
+ *  @param targetModel 需要转化的目标模型 (如果 targetModel 为 nil , 则返回默认的字典)
  *  @param handle      回调
  *
  *  @return 请求操作对象

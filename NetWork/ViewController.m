@@ -20,9 +20,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    NSURLSessionDataTask *op = [[NetworkRequestManager shareManager] GET:@"http://114.80.110.197/v3/028/json/reply/GetRegionPostsRequest" params:nil targetModelClass:[TestModel class] completionHnadle:^(id operation, id targetModel, NSError *error) {
+    NSURLSessionDataTask *op = [[NetworkRequestManager shareManager] GET:@"http://114.80.110.197/v3/028/json/reply/GetRegionPostsRequest" params:nil targetModelClass:[TestModel class] completionHnadle:^(id operation, id targetData, NSError *error) {
         
-        TestModel *model = (TestModel *)targetModel;
+        TestModel *model = (TestModel *)targetData;
         
         [model.Result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
