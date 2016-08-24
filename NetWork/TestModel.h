@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface TestModel :NSObject
-@property (nonatomic, assign) NSInteger ResultNo;
-@property (nonatomic, assign) NSInteger Total;
-@property (nonatomic, strong) NSArray *Result;
+@property (nonatomic, assign) NSInteger resultNo;
+@property (nonatomic, assign) NSInteger total;
+@property (nonatomic, strong) NSArray *result;
 
 @end
 

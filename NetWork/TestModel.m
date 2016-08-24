@@ -10,10 +10,23 @@
 
 @implementation TestModel
 
-// 某一属性为模型数组时   作以下声明
-+ (NSDictionary *)objectClassInArray{
+//// 某一属性为模型数组时   作以下声明
+//+ (NSDictionary *)objectClassInArray{
+//    return @{
+//             @"Result":[TestModel2 class]
+//             };
+//}
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"result" : @"Result",
+             @"total":@"Total",
+             @"resultNo":@"ResultNo",
+             };
+}
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
     return @{
-             @"Result":[TestModel2 class]
+             @"result" : [TestModel2 class],
              };
 }
 @end
@@ -21,11 +34,16 @@
 
 @implementation TestModel2
 
-// 需要替换名字的  在这里声明
-+ (NSDictionary *)mj_replacedKeyFromPropertyName{
-    return @{
-             @"address":@"Address",
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"address" : @"Address",
              };
 }
+
+//// 需要替换名字的  在这里声明
+//+ (NSDictionary *)mj_replacedKeyFromPropertyName{
+//    return @{
+//             @"address":@"Address",
+//             };
+//}
 
 @end

@@ -10,6 +10,7 @@
 #import "NetworkOperationManager.h"
 #import "AFNetworking.h"
 #import "MJExtension.h"
+#import "YYModel.h"
 
 // 是否使用  NSURLSession  来完成网络请求
 #define UseNSURLSession 1
@@ -39,7 +40,7 @@
         {
             if (targetModel)
             {
-                id model = [targetModel mj_objectWithKeyValues:responseObject];
+                id model = [targetModel yy_modelWithDictionary:responseObject];
                 
                 handle (operation, model , nil);
             }
@@ -67,7 +68,7 @@
         {
             if (targetModel)
             {
-                id model = [targetModel mj_objectWithKeyValues:responseObject];
+                id model = [targetModel yy_modelWithDictionary:responseObject];
                 
                 handle (operation, model , nil);
             }

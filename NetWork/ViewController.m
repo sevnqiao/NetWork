@@ -24,7 +24,7 @@
         
         TestModel *model = (TestModel *)targetData;
         
-        [model.Result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [model.result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             TestModel2 *model2 = (TestModel2 *)obj;
             
