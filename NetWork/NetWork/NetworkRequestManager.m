@@ -84,7 +84,7 @@
 
 - (id)requestWithMethod:(NSString *)requestMethod address:(NSString *)address params:(NSDictionary *)params completionHnadle:(void(^)(id operation, id responseObject, NSError *error))handle{
     
-    if (SYSTEMVERSION > 7.0 && UseNSURLSession) {
+    if ([UIDevice currentDevice].systemVersion.floatValue > 7.0 && UseNSURLSession) {
         
         NSURLSessionDataTask *requestTask;
         
