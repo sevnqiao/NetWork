@@ -82,6 +82,33 @@
     return requestOperation;
 }
 
+- (id)UPLOAD:(NSString *)address params:(NSDictionary *)params targetModelClass:(Class)targetModel constructingFormData:(id <AFMultipartFormData> )multipartformData completionHnadle:(CompletionHandle)handle{
+    
+    id requestOperation = [self uploadData:address params:params constructingFormData:multipartformData completionHnadle:^(id operation, id responseObject, NSError *error) {
+        
+        if (error)
+        {
+            handle(operation, nil, error);
+        }
+        else
+        {
+            if (targetModel)
+            {
+                id model = [targetModel yy_modelWithDictionary:responseObject];
+                
+                handle (operation, model , nil);
+            }
+            else
+            {
+                handle (operation, responseObject, nil);
+            }
+        }
+        
+    }];
+
+    return requestOperation;
+}
+
 - (id)requestWithMethod:(NSString *)requestMethod address:(NSString *)address params:(NSDictionary *)params completionHnadle:(void(^)(id operation, id responseObject, NSError *error))handle{
     
     if ([UIDevice currentDevice].systemVersion.floatValue > 7.0 && UseNSURLSession) {
@@ -188,6 +215,80 @@
     }
     
 }
+
+
+- (id)uploadData:(NSString *)address params:(NSDictionary *)params constructingFormData:(id <AFMultipartFormData> )multipartformData completionHnadle:(void(^)(id operation, id responseObject, NSError *error))handle{
+    
+    if ([UIDevice currentDevice].systemVersion.floatValue > 7.0 && UseNSURLSession) {
+        
+        NSURLSessionDataTask *requestTask;
+        
+        AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]init];
+        
+        [self setOperationManagerHeader:manager];
+        
+        [self setOperationManagerOtherInfo:manager];
+        
+        //    [self setOperationManagerSecurityPolicy:manager];
+        
+        requestTask = [manager POST:address parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            formData = multipartformData;
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            
+            handle (task, responseObject, nil);
+            
+            [self removeRequestOperation:requestTask];
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            handle (task, nil, error);
+            
+            [self removeRequestOperation:requestTask];
+            
+        }];
+        
+        [self addRequestOperation:requestTask];
+        
+        return requestTask;
+    }
+    else
+    {
+        AFHTTPRequestOperation *requestOperation;
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+        
+        [self setOperationManagerHeader:manager];
+        
+        [self setOperationManagerOtherInfo:manager];
+        
+        //    [self setOperationManagerSecurityPolicy:manager];
+        
+        requestOperation = [manager POST:address parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            formData = multipartformData;
+            
+        } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            
+            handle (operation, operation.responseObject, nil);
+            
+            [self removeRequestOperation:requestOperation];
+            
+        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+            
+            handle (operation, nil, error);
+            
+            [self removeRequestOperation:requestOperation];
+            
+        }];
+        
+        [self addRequestOperation:requestOperation];
+        
+        return requestOperation;
+    }
+}
+
 
 #pragma mark - 初始化AFHTTPRequestOperationManager / AFHTTPSessionManager 其他参数
 ///设置operationManager的请求头
