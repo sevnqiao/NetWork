@@ -7,8 +7,7 @@
 //
 
 #import "UIViewController+NetworkOperationManager.h"
-#import <objc/runtime.h>
-#import "AFNetworking.h"
+#import <objc/objc-runtime.h>
 #import "NetworkRequestManager.h"
 
 static NSString *kOperationKey = @"kOperationKey";

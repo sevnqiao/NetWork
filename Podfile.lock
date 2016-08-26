@@ -24,7 +24,7 @@ PODS:
   - YYModel (1.0.4)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.6.0)
+  - AFNetworking (~> 2.6.3)
   - MJExtension (~> 3.0.13)
   - YYModel (~> 1.0.4)
 
